@@ -53,20 +53,9 @@ app.post('/cadastrar', (req, res) => {
 
 
 
-// app.post('/cadastrar', (req, res) => {
-//     const { nome, valor, imagem } = req.body;
-//     const sql = `INSERT INTO cliente (nome, idade, imagem) VALUES ('${nome}', '${valor}', '${imagem}')`;
-//     conexao.query(sql, function(err, result){
-//         if(err) throw err;
-//         console.log('Usuário cadastrado com sucesso!');
-//         res.render('formulario');
-//     });
+
 });
-// Rota de cadastro
-    //  app.post('/cadastrar', function(req, res){
-    //    console.log(req.body);
-    //    res.end(); 
-    // });
+
 
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
