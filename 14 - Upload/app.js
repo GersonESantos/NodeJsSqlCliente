@@ -1,6 +1,7 @@
 // Import the express library
 const express = require('express');
-
+// importa o módulo fileupload
+const fileUpload = require('express-fileupload');
 // Importa o módulo express-handlebars
 const { engine } = require('express-handlebars');
 
@@ -8,6 +9,8 @@ const { engine } = require('express-handlebars');
 const mysql = require('mysql2');
 // App
 const app = express();
+// Habilita o fileupload
+app.use(fileUpload());
 
 // Adiciona o bootstrap
 app.use('/bootstrap', express.static('./node_modules/bootstrap/dist'));
@@ -43,8 +46,9 @@ app.get('/', (req, res) => {
 //Rota de cadastro
 
 app.post('/cadastrar', (req, res) => {
-    const { nome, idade, email, senha} = req.body;
-    const sql = `INSERT INTO cliente (nome, idade, email, senha) VALUES ('${nome}', ${idade}, '${email}', '${senha}')`;
+    let imagem = (req.files.imagem.name);
+    const { nome, idade, email, senha, imagem} = req.body;
+    const sql = `INSERT INTO cliente (nome, idade, email, senha, imagem) VALUES ('${nome}', ${idade}, '${email}', '${senha}', '${imagem}')`;
     conexao.query(sql, function(err, result){
         if(err) throw err;
         console.log('Usuário cadastrado com sucesso!');
