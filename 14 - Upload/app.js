@@ -45,20 +45,23 @@ app.get('/', (req, res) => {
 
 //Rota de cadastro
 
-app.post('/cadastrar', (req, res) => {
-    let imagem = (req.files.imagem.name);
-    const { nome, idade, email, senha, imagem} = req.body;
-    const sql = `INSERT INTO cliente (nome, idade, email, senha, imagem) VALUES ('${nome}', ${idade}, '${email}', '${senha}', '${imagem}')`;
-    conexao.query(sql, function(err, result){
-        if(err) throw err;
-        console.log('Usuário cadastrado com sucesso!');
-        res.render('formulario');
+// app.post('/cadastrar', (req, res) => {
+//     let imagem = ();
+//     const { nome, idade, email, senha, imagem} = req.body;
+//     const sql = `INSERT INTO cliente (nome, idade, email, senha, imagem) VALUES ('${nome}', ${idade}, '${email}', '${senha}', '${imagem}')`;
+//     conexao.query(sql, function(err, result){
+//         if(err) throw err;
+//         console.log('Usuário cadastrado com sucesso!');
+//         res.render('formulario');
+//     });
+// });
+
+app.post('/cadastrar', function(req, res){
+    console.log(req.body);
+    console.log(req.files.imagem.name);
+    req.files.imagem.mv(__dirname + '/imagens/' + req.files.imagem.name);
+        res.end();
     });
-
-
-
-
-});
 
 
 app.listen(8080, () => {
