@@ -45,23 +45,35 @@ app.get('/', (req, res) => {
 
 //Rota de cadastro
 
-app.post('/cadastrar', (req, res) => {
-    req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
-    const { nome, idade, email, senha, imagem} = req.body;
-    const sql = `INSERT INTO cliente (nome, idade, email, senha, imagem) VALUES ('${nome}', ${idade}, '${email}', '${senha}', '${(req.files.imagem.name)}')`;
+// app.post('/cadastrar', (req, res) => {
+//     req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
+//     const { nome, idade, email, senha, imagem} = req.body;
+//     const sql = `INSERT INTO cliente (nome, idade, email, senha, imagem) VALUES ('${nome}', ${idade}, '${email}', '${senha}', '${(req.files.imagem.name)}')`;
+//     conexao.query(sql, function(err, result){
+//         if(err) throw err;
+//         console.log('Usuário cadastrado com sucesso!');
+//         res.render('formulario');
+//     });
+// });
+
+app.post('/cadastrar', function(req, res){
+    let nome = req.body.nome;
+    let idade = req.body.idade;
+    let email = req.body.email;
+    let senha = req.body.senha;
+    let imagem = req.files.imagem;
+    //Sql
+    let sql = `INSERT INTO cliente (nome, idade, email, senha, imagem) VALUES ('${nome}', ${idade}, '${email}', '${senha}', '${imagem.name}')`;
+    //executar a query SQL
     conexao.query(sql, function(err, result){
         if(err) throw err;
         console.log('Usuário cadastrado com sucesso!');
-        res.render('formulario');
+        req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
+        console.log('resultado', result);
     });
-});
+    res.render('/');
 
-// app.post('/cadastrar', function(req, res){
-//     console.log(req.body);
-//     console.log(req.files.imagem.name);
-//     //req.files.imagem.mv(__dirname + '/imagens/' + req.files.imagem.name);
-//         res.end();
-//     });
+});
 
 
 app.listen(8080, () => {
