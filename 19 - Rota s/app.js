@@ -78,10 +78,21 @@ app.post('/cadastrar', function(req, res){
         console.log('resultado', result);
     });
     res.render('/');
-
 });
 
-
+// Rota de exclusão de cliente
+app.get('/remover/:id&:imagem', function(req, res) {
+    console.log(req.params.id);
+    console.log(req.params.imagem);
+    res.end();
+    // let id = req.params.id;
+    // let sql = `DELETE FROM cliente WHERE id = ${id}`;
+    // conexao.query(sql, function(err, result){
+    //     if(err) throw err;
+    //     console.log('Cliente excluído com sucesso!');
+    //     res.redirect('/');
+    // });
+});
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
   });
