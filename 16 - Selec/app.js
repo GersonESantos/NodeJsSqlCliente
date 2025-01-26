@@ -40,7 +40,11 @@ conexao.connect(function(err){
 });
 // Rota Principal
 app.get('/', (req, res) => {
-    res.render('formulario');
+    let sql = 'SELECT * FROM cliente';  
+    conexao.query(sql, function(err, result){
+        if(err) throw err;
+        res.render('formulario', {clientes: result});
+    });
 });
 
 //Rota de cadastro
