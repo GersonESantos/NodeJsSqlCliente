@@ -15,8 +15,10 @@ app.use(fileUpload());
 // Adiciona o bootstrap
 app.use('/bootstrap', express.static('./node_modules/bootstrap/dist'));
 
+// configuração do handlebars
 // Adiciona o css
 app.use('/css', express.static('./css'));
+app.use('/imagens', express.static('./imagens'));
 // configuração do handlebars
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
