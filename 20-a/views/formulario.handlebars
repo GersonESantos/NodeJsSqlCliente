@@ -1,83 +1,87 @@
-{{!-- 
 
 <main>
-    {{!-- foumulario --}}
-    <div class="container">
-        <div class="row">
-            <div class="col-6 offset-3">
-                <form action="/cadastrar" method="post" enctype="multipart/form-data">
+
+    <!-- Botão para abrir o modal -->
+     <button class="open-modal" data-modal="modal-1">
+        {{!-- Open Modal --}}
+
+    <!-- Modal -->
+    <dialog id="modal-1">
+        
+        <form action="{{formAction}}" method="post">
+            <!-- Cabeçalho do modal -->
+            <div class="modal-header">
+                <!-- Título do modal -->
+                <h1 class="modal-title">
+                    Sign in to our platform
+                </h1>
+
+                <!-- Botão para fechar o modal -->
+                <button class="close-modal" type="button" data-modal="modal-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+    
+            <!-- Corpo do modal -->
+            <div class="modal-body">
+                <!-- Campo de e-mail -->
                 
-                    <input type="text" name="nome" class="form-control" placeholder="Nome">
-                    <input type="number" name = "idade" class="form-control"  placeholder="Idade">
-                    <input type="email" name = "email" class="form-control" placeholder="Email">
-                    <input type="paswd" name = "senha" class="form-control" placeholder="Senha">
-                     <input type="file" name = "imagem" class="form-control" >
-                    <input type="submit" class="btn btn-primary" value="Cadastrar"> 
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="name@example.com"
+                        {{!-- value="{{email}}" --}}
+                    >
+                </div>
+    
+                <!-- Campo de senha -->
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    
+                    <input 
+                        type="password" 
+                        id="password"
+                        name="senha"
+                        placeholder="•••••••"
+                        {{!-- value="{{password}}" --}}
+                    >
+                </div>
 
-                </form>
-            </div>        
-        </div>       
-    </div>
-    {{!-- Listagem de Clientes --}}
+                <!-- Opções de senha -->
+                {{!-- <div class="password-options">
+                    <div class="remember-password">
+                      
+                        <input 
+                            type="checkbox" 
+                            id="remember_password" 
+                            name="remember_password"
+                            {{#if remember_password}}checked{{/if}}
+                        >
+                        <label for="remember_password">Remember me</label>
+                    </div>
 
-<div class="conteiner">
-    <div class="row">
-    {{#each clientes}}
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="card">
-                <img src="../imagens/{{imagem}}" class="card-img-top" alt="..."> 
-                <div class="textos">     
-                    <p>Nome: {{nome}}</p>
-                    <p>Idade: {{idade}}</p>
-                    <p>Email: {{email}}</p>
-                    <p>Senha: {{senha}}</p>
-                </div> 
-                    <a href="/formularioEditar/{{codigo}}" class="btn btn-warning">Alterar</a>
-                    <a href="/remover/{{id}}&{{imagem}}" class="btn btn-danger">Remover</a>
-             </div>
-        </div>
-        {{/each}}
-    </div>
-</div>
-</main> --}}
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div> --}}
 
-<form action="/submit" method="POST" enctype="multipart/form-data" class="form-container">
-  <!-- Campo ID (opcional, geralmente oculto) -->
-  <input type="hidden" name="id" value="{{id}}">
+                <!-- Botão de login -->
+                <button id="login_button">
+                    Login to your account
+                </button>
 
-  <!-- Campo Nome -->
-  <div class="form-group">
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" value="{{nome}}" placeholder="Digite o nome" required>
-  </div>
+                <!-- Botão de registro -->
+                <div class="register">
+                    <span>Not registered?</span>
+                    <a href="#">Login here</a>
+                </div>
+            </div>
+        </form>
+    </dialog>
 
-  <!-- Campo Idade -->
-  <div class="form-group">
-    <label for="idade">Idade:</label>
-    <input type="number" id="idade" name="idade" value="{{idade}}" placeholder="Digite a idade" required>
-  </div>
+    <!-- JavaScript -->
+    </button>
 
-  <!-- Campo Email -->
-  <div class="form-group">
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" value="{{email}}" placeholder="Digite o email" required>
-  </div>
-
-  <!-- Campo Senha -->
-  <div class="form-group">
-    <label for="senha">Senha:</label>
-    <input type="password" id="senha" name="senha" placeholder="Digite a senha" required>
-  </div>
-
-  <!-- Campo Imagem -->
-  <div class="form-group">
-    <label for="imagem">Imagem:</label>
-    <input type="file" id="imagem" name="imagem" accept="image/*">
-  </div>
-
-  <!-- Botões -->
-  <div class="form-actions">
-    <button type="submit">Enviar</button>
-    <button type="reset">Limpar</button>
-  </div>
-</form>
+</main>
