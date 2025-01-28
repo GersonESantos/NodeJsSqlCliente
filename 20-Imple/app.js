@@ -7,6 +7,10 @@ const { engine } = require('express-handlebars');
 
 // importa o módulo mysql
 const mysql = require('mysql2');
+
+//File System
+const fs = require('fs');
+
 // App
 const app = express();
 // Habilita o fileupload
@@ -81,18 +85,30 @@ app.post('/cadastrar', function(req, res){
 });
 
 // Rota de exclusão de cliente
-app.get('/remover/:id&:imagem', function(req, res) {
-    console.log(req.params.id);
-    console.log(req.params.imagem);
-    res.end();
-    // let id = req.params.id;
-    // let sql = `DELETE FROM cliente WHERE id = ${id}`;
-    // conexao.query(sql, function(err, result){
-    //     if(err) throw err;
-    //     console.log('Cliente excluído com sucesso!');
-    //     res.redirect('/');
-    // });
+
+// Rota para remover produtos
+app.get('/remover/:id&:imagem', function(req, res){
+    
+    // SQL
+    let sql = `DELETE FROM cliente WHERE id = ${req.params.id}`;
+
+    // Executar o comando SQL
+    conexao.query(sql, function(erro, retorno){
+        // Caso falhe o comando SQL
+        if(erro) throw erro;
+
+        // Caso o comando SQL funcione
+        fs.unlink(__dirname+'/imagens/'+req.params.imagem, (erro_imagem)=>{
+            console.log('Falha ao remover a imagem ');
+        });
+    });
+
+    // Redirecionamento
+    res.redirect('/');
+
 });
+
+
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
   });
