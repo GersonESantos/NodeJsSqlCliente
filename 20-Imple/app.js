@@ -57,7 +57,7 @@ app.get('/', (req, res) => {
 
 // app.post('/cadastrar', (req, res) => {
 //     req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
-//     const { nome, telefone, email, afinidade, imagem} = req.body;
+//     const { nome, idade, email, afinidade, imagem} = req.body;
 //     const sql = `INSERT INTO cliente (nome, idade, email, afinidade, imagem) VALUES ('${nome}', ${idade}, '${email}', '${afinidade}', '${(req.files.imagem.name)}')`;
 //     conexao.query(sql, function(err, result){
 //         if(err) throw err;
@@ -73,7 +73,7 @@ app.post('/cadastrar', function(req, res){
     let afinidade = req.body.afinidade;
     let imagem = req.files.imagem;
     //Sql
-    let sql = `INSERT INTO cliente (nome, telefone, email, afinidade, imagem) VALUES ('${nome}', ${telefone }, '${email}', '${afinidade}', '${imagem.name}')`;
+    let sql = `INSERT INTO cliente (nome, telefone, email, afinidade, imagem) VALUES ('${nome}', ${idade}, '${email}', '${afinidade}', '${imagem.name}')`;
     //executar a query SQL
     conexao.query(sql, function(err, result){
         if(err) throw err;
