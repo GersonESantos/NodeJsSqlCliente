@@ -5,6 +5,9 @@ form {
 form input {
     margin-bottom: 10px;
 }
+form imput[type="submit"] {
+    margin-top: 10px;
+}
 .card {
     margin-top: 40px;
     padding: 5px;
