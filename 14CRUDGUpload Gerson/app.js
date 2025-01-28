@@ -47,8 +47,8 @@ app.get('/', (req, res) => {
 
 app.post('/cadastrar', (req, res) => {
     req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
-    const { nome, idade, email, senha, imagem} = req.body;
-    const sql = `INSERT INTO cliente (nome, idade, email, senha, imagem) VALUES ('${nome}', ${idade}, '${email}', '${senha}', '${(req.files.imagem.name)}')`;
+    const { nome, telefone, email, afinidade, imagem} = req.body;
+    const sql = `INSERT INTO cliente (nome, telefone, email, afinidade, imagem) VALUES ('${nome}', ${telefone}, '${email}', '${afinidade}', '${(req.files.imagem.name)}')`;
     conexao.query(sql, function(err, result){
         if(err) throw err;
         console.log('Usuário cadastrado com sucesso!');
