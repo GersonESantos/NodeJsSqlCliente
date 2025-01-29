@@ -47,8 +47,8 @@ app.get('/', (req, res) => {
 
 // app.post('/cadastrar', (req, res) => {
 //     req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
-//     const { nome, idade, email, senha, imagem} = req.body;
-//     const sql = `INSERT INTO cliente (nome, idade, email, senha, imagem) VALUES ('${nome}', ${idade}, '${email}', '${senha}', '${(req.files.imagem.name)}')`;
+//     const { nome, telefone, email, afinidade, imagem} = req.body;
+//     const sql = `INSERT INTO cliente (nome, telefone, email, afinidade, imagem) VALUES ('${nome}', ${telefone}, '${email}', '${afinidade}', '${(req.files.imagem.name)}')`;
 //     conexao.query(sql, function(err, result){
 //         if(err) throw err;
 //         console.log('Usuário cadastrado com sucesso!');
@@ -57,23 +57,11 @@ app.get('/', (req, res) => {
 // });
 
 app.post('/cadastrar', function(req, res){
-    let nome = req.body.nome;
-    let idade = req.body.idade;
-    let email = req.body.email;
-    let senha = req.body.senha;
-    let imagem = req.files.imagem;
-    //Sql
-    let sql = `INSERT INTO cliente (nome, idade, email, senha, imagem) VALUES ('${nome}', ${idade}, '${email}', '${senha}', '${imagem.name}')`;
-    //executar a query SQL
-    conexao.query(sql, function(err, result){
-        if(err) throw err;
-        console.log('Usuário cadastrado com sucesso!');
-        req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
-        console.log('resultado', result);
+    console.log(req.body);
+    console.log(req.files.imagem.name);
+    req.files.imagem.mv(__dirname + '/imagens/' + req.files.imagem.name);
+        res.end();
     });
-    res.render('/');
-
-});
 
 
 app.listen(8080, () => {
