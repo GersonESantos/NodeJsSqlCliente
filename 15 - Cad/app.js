@@ -57,21 +57,12 @@ app.get('/', (req, res) => {
 // });
 
 app.post('/cadastrar', function(req, res){
-    let nome = req.body.nome;
-    let telefone = req.body.telefone;
-    let email = req.body.email;
-    let afinidade = req.body.afinidade;
-    let imagem = req.files.imagem.name ;
-    let sql = `INSERT INTO cliente (nome, telefone, email, afinidade, imagem) VALUES ('${nome}', '${telefone}', '${email}', '${afinidade}', '${imagem}')`; 
-});
-
-// conexao.query(sql, function(err, retorno){
-//     if(err) throw err;
-    //req.files.imagem.mv(__dirname + '/imagens/' + req.files.imagem.name);
-        // console.log(retorno);
-        //res.render('formulario', result);
-
+    console.log(req.body);
+    console.log(req.files.imagem.name);
+    req.files.imagem.mv(__dirname + '/imagens/' + req.files.imagem.name);
+        res.end();
     });
+
 
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
