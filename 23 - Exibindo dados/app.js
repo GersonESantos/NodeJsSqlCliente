@@ -100,13 +100,23 @@ app.get('/formularioEditar/:id', function(req, res){
     conexao.query(sql, function(err, retorno){
         if(err) throw err;
         res.render('formularioEditar', {cliente:retorno[0]});
-    }); 
-
-    
-    
-    
+    });    
 });
 
+// Rota para editar os dados
+app.post('/editar', function(req, res){
+    let id = req.body.id;
+    let nome = req.body.nome;
+    let telefone = req.body.telefone;
+    let email = req.body.email;
+    let afinidade = req.body.afinidade;
+    let imagem = req.body.imagem;
+
+    let sql = `UPDATE cliente SET nome = '${nome}', telefone = ${telefone}, email = '${email}', afinidade = '${afinidade}', imagem = '${imagem}' WHERE id = ${id}`;
+    conexao.query(sql, function(err, retorno){
+        if(err) throw err;
+        res.redirect('/');
+    });
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
   });
