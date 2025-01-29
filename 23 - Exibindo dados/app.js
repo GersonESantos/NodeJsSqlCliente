@@ -117,6 +117,7 @@ app.post('/editar', function(req, res){
         if(err) throw err;
         res.redirect('/');
     });
+});
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
   });
