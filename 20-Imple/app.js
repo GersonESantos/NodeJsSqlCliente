@@ -73,7 +73,7 @@ app.post('/cadastrar', function(req, res){
     //res.end();
 });
 // Rota para remover produtos
-app.get('/remover/:codigo&:imagem', function(req, res){
+app.get('/remover/:id&:imagem', function(req, res){
     
     // SQL
     let sql = `DELETE FROM cliente WHERE id = ${req.params.id}`;
