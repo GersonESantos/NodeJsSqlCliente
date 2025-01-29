@@ -5,3 +5,11 @@ form {
 form input {
     margin-bottom: 10px;
 }
+.card
+{
+    margin-top: 40px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
