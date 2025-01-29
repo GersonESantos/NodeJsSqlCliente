@@ -1,9 +1,7 @@
 // Import the express library
 const express = require('express');
-
-// Importa fileupload
+// importa o módulo fileupload
 const fileUpload = require('express-fileupload');
-
 // Importa o módulo express-handlebars
 const { engine } = require('express-handlebars');
 
@@ -11,8 +9,7 @@ const { engine } = require('express-handlebars');
 const mysql = require('mysql2');
 // App
 const app = express();
-
-//  habilita o fileupload
+// Habilita o fileupload
 app.use(fileUpload());
 
 // Adiciona o bootstrap
@@ -20,6 +17,8 @@ app.use('/bootstrap', express.static('./node_modules/bootstrap/dist'));
 
 // Adiciona o css
 app.use('/css', express.static('./css'));
+//referencia a pasta imagens
+app.use('/imagens', express.static('./imagens'));
 // configuração do handlebars
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
@@ -43,22 +42,45 @@ conexao.connect(function(err){
 });
 // Rota Principal
 app.get('/', (req, res) => {
-    res.render('formulario');
+    let sql = 'SELECT * FROM cliente';  
+    conexao.query(sql, function(err, result){
+        if(err) throw err;
+        res.render('formulario', {clientes: result});
+    });
 });
 
-// Rota de cadastro
+//Rota de cadastro
+
+// app.post('/cadastrar', (req, res) => {
+//     req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
+//     const { nome, idade, email, senha, imagem} = req.body;
+//     const sql = `INSERT INTO cliente (nome, idade, email, senha, imagem) VALUES ('${nome}', ${idade}, '${email}', '${senha}', '${(req.files.imagem.name)}')`;
+//     conexao.query(sql, function(err, result){
+//         if(err) throw err;
+//         console.log('Usuário cadastrado com sucesso!');
+//         res.render('formulario');
+//     });
+// });
 
 app.post('/cadastrar', function(req, res){
-    console.log(req.body);
-    console.log(req.files.imagem.name);
-    req.files.imagem.mv(__dirname + '/imagens/' + req.files.imagem.name);
-        res.end();
+    let nome = req.body.nome;
+    let idade = req.body.idade;
+    let email = req.body.email;
+    let senha = req.body.senha;
+    let imagem = req.files.imagem;
+    //Sql
+    let sql = `INSERT INTO cliente (nome, idade, email, senha, imagem) VALUES ('${nome}', ${idade}, '${email}', '${senha}', '${imagem.name}')`;
+    //executar a query SQL
+    conexao.query(sql, function(err, result){
+        if(err) throw err;
+        console.log('Usuário cadastrado com sucesso!');
+        req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
+        console.log('resultado', result);
     });
-    // Redirecionar
+    res.render('/');
 
+});
 
-
-    
 
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
