@@ -7,6 +7,7 @@
             <div class="col-6 offset-3">
                 <form action="/editar" method="post" enctype="multipart/form-data">
                     <img src="../imagens/{{cliente.imagem}}">
+                    <input type="hidden" name="cliente.imagem" value="{{cliente.imagem}}">
                     <input type="hidden" name="id" value = "{{cliente.id}}">
                     <input type="text" name="nome" value = "{{cliente.nome}}" class="form-control" placeholder="Nome">
                     <input type="email" name = "email" value ="{{cliente.email}}" class="form-control" placeholder="Email">
