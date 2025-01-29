@@ -96,9 +96,14 @@ app.get('/remover/:id&:imagem', function(req, res){
 
 // Rota para redirecionar para o formulário de alteração/edição
 app.get('/formularioEditar/:id', function(req, res){
+    let sql = `SELECT * FROM cliente WHERE id = ${req.params.id}`;
+    conexao.query(sql, function(err, retorno){
+        if(err) throw err;
+        res.render('formularioEditar', {cliente:retorno[0]});
+    }); 
+
     
     
-    res.render("formularioEditar");
     
 });
 
