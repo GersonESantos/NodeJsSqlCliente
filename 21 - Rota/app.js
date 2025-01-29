@@ -94,6 +94,13 @@ app.get('/remover/:id&:imagem', function(req, res){
 
 });
 
+// Rota para redirecionar para o formulário de alteração/edição
+app.get('/formularioEditar/:id', function(req, res){
+    
+    console.log(req.params.id);
+    res.end();
+    
+});
 
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
