@@ -40,21 +40,13 @@ conexao.connect(function(err){
 });
 // Rota Principal
 app.get('/', (req, res) => {
-    res.render('formulario');
+    let sql = 'SELECT * FROM cliente';
+    conexao.query(sql, function(err, result){
+        if(err) throw err;
+        res.render('formulario', {clientes: result});
+    });
 });
 
-//Rota de cadastro
-
-// app.post('/cadastrar', (req, res) => {
-//     req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
-//     const { nome, telefone, email, afinidade, imagem} = req.body;
-//     const sql = `INSERT INTO cliente (nome, telefone, email, afinidade, imagem) VALUES ('${nome}', ${telefone}, '${email}', '${afinidade}', '${(req.files.imagem.name)}')`;
-//     conexao.query(sql, function(err, result){
-//         if(err) throw err;
-//         console.log('Usuário cadastrado com sucesso!');
-//         res.render('formulario');
-//     });
-// });
 
 app.post('/cadastrar', function(req, res){
    
