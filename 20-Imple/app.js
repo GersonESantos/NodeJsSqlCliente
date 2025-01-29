@@ -7,10 +7,6 @@ const { engine } = require('express-handlebars');
 
 // importa o módulo mysql
 const mysql = require('mysql2');
-
-//File System
-const fs = require('fs');
-
 // App
 const app = express();
 // Habilita o fileupload
@@ -19,7 +15,6 @@ app.use(fileUpload());
 // Adiciona o bootstrap
 app.use('/bootstrap', express.static('./node_modules/bootstrap/dist'));
 
-// configuração do handlebars
 // Adiciona o css
 app.use('/css', express.static('./css'));
 app.use('/imagens', express.static('./imagens'));
@@ -46,67 +41,43 @@ conexao.connect(function(err){
 });
 // Rota Principal
 app.get('/', (req, res) => {
-    let sql = 'SELECT * FROM cliente';  
+    let sql = 'SELECT * FROM cliente';
     conexao.query(sql, function(err, result){
         if(err) throw err;
         res.render('formulario', {clientes: result});
     });
 });
 
-//Rota de cadastro
-
-// app.post('/cadastrar', (req, res) => {
-//     req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
-//     const { nome, idade, email, afinidade, imagem} = req.body;
-//     const sql = `INSERT INTO cliente (nome, idade, email, afinidade, imagem) VALUES ('${nome}', ${idade}, '${email}', '${afinidade}', '${(req.files.imagem.name)}')`;
-//     conexao.query(sql, function(err, result){
-//         if(err) throw err;
-//         console.log('Usuário cadastrado com sucesso!');
-//         res.render('formulario');
-//     });
-// });
 
 app.post('/cadastrar', function(req, res){
+   
     let nome = req.body.nome;
     let telefone = req.body.telefone;
     let email = req.body.email;
     let afinidade = req.body.afinidade;
-    let imagem = req.files.imagem;
-    //Sql
-    let sql = `INSERT INTO cliente (nome, telefone, email, afinidade, imagem) VALUES ('${nome}', ${idade}, '${email}', '${afinidade}', '${imagem.name}')`;
-    //executar a query SQL
+    req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
+
+    const sql = `INSERT INTO cliente (nome, telefone, email, afinidade, imagem) VALUES ('${nome}', ${telefone}, '${email}', '${afinidade}', '${req.files.imagem.name}')`;
     conexao.query(sql, function(err, result){
         if(err) throw err;
         console.log('Usuário cadastrado com sucesso!');
-        req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
-        console.log('resultado', result);
-    });
-    res.render('/');
+       
+    }); 
+    console.log(req.body);
+    console.log(req.files.imagem.name);
+    req.files.imagem.mv(__dirname + '/imagens/' + req.files.imagem.name);
+   res.redirect('/');
+    //res.end();
 });
-
-// Rota de exclusão de cliente
 
 // Rota para remover produtos
 app.get('/remover/:id&:imagem', function(req, res){
+
+    console.log(req.params.id);
+    console.log(req.params.imagem);
+    res.end();
     
-    // SQL
-    let sql = `DELETE FROM cliente WHERE id = ${req.params.id}`;
-
-    // Executar o comando SQL
-    conexao.query(sql, function(erro, retorno){
-        // Caso falhe o comando SQL
-        if(erro) throw erro;
-
-        // Caso o comando SQL funcione
-        fs.unlink(__dirname+'/imagens/'+req.params.imagem, (erro_imagem)=>{
-            console.log('Falha ao remover a imagem ');
-        });
     });
-
-    // Redirecionamento
-    res.redirect('/');
-
-});
 
 
 app.listen(8080, () => {
