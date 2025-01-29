@@ -57,11 +57,25 @@ app.get('/', (req, res) => {
 // });
 
 app.post('/cadastrar', function(req, res){
+   
+    let nome = req.body.nome;
+    let telefone = req.body.telefone;
+    let email = req.body.email;
+    let afinidade = req.body.afinidade;
+    req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
+
+    const sql = `INSERT INTO cliente (nome, telefone, email, afinidade, imagem) VALUES ('${nome}', ${telefone}, '${email}', '${afinidade}', '${req.files.imagem.name}')`;
+    conexao.query(sql, function(err, result){
+        if(err) throw err;
+        console.log('Usuário cadastrado com sucesso!');
+       
+    }); 
     console.log(req.body);
     console.log(req.files.imagem.name);
     req.files.imagem.mv(__dirname + '/imagens/' + req.files.imagem.name);
-        res.end();
-    });
+   res.redirect('/');
+    //res.end();
+});
 
 
 app.listen(8080, () => {
