@@ -52,6 +52,7 @@ app.post('/cadastrar', (req, res) => {
     conexao.query(sql, function(err, result){
         if(err) throw err;
         console.log('Usuário cadastrado com sucesso!');
+        req.files.imagem.mv(__dirname + '/imagens/' + req.files.imagem.name);
         res.render('formulario');
     });
 });

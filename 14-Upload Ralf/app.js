@@ -59,7 +59,7 @@ app.get('/', (req, res) => {
 app.post('/cadastrar', function(req, res){
     console.log(req.body);
     console.log(req.files.imagem.name);
-    //req.files.imagem.mv(__dirname + '/imagens/' + req.files.imagem.name);
+    req.files.imagem.mv(__dirname + '/imagens/' + req.files.imagem.name);
         res.end();
     });
 
