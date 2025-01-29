@@ -103,21 +103,29 @@ app.get('/formularioEditar/:id', function(req, res){
     });    
 });
 
-// Rota para editar os dados
+// Rota para editar Cliente
 app.post('/editar', function(req, res){
+    //obter os dados do formulário
     let id = req.body.id;
     let nome = req.body.nome;
     let telefone = req.body.telefone;
     let email = req.body.email;
     let afinidade = req.body.afinidade;
-    let imagem = req.body.imagem;
+    let nomeImagem = req.body.nomeImagem;
+    let imagem = req.files.imagem.name;
 
-    let sql = `UPDATE cliente SET nome = '${nome}', telefone = ${telefone}, email = '${email}', afinidade = '${afinidade}', imagem = '${imagem}' WHERE id = ${id}`;
-    conexao.query(sql, function(err, retorno){
-        if(err) throw err;
-        res.redirect('/');
+    // exibir os dados no console
+
+    console.log(id);
+    console.log(nome);
+    console.log(telefone);
+    console.log(email);
+    console.log(afinidade);
+    console.log(imagem);
+    console.log(nomeImagem);  
+        res.end;
     });
-});
+    // verificar se o campo imagem foi preenchido
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
   });

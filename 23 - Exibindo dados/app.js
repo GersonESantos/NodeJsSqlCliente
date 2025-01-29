@@ -100,11 +100,7 @@ app.get('/formularioEditar/:id', function(req, res){
     conexao.query(sql, function(err, retorno){
         if(err) throw err;
         res.render('formularioEditar', {cliente:retorno[0]});
-    }); 
-
-    
-    
-    
+    });   
 });
 
 app.listen(8080, () => {
