@@ -112,17 +112,24 @@ app.post('/editar', function(req, res){
     let email = req.body.email;
     let afinidade = req.body.afinidade;
     let nomeImagem = req.body.nomeImagem;
-    let imagem = req.files.imagem.name;
+    // verificar se o campo imagem foi preenchido
+    try{
+        let imagem = req.files.imagem.name;
+        res.write('Imagem sera alterada');
+    }catch(erro){
+        res.write('Imagem nao sera alterada');
+    }
+
 
     // exibir os dados no console
 
-    console.log(id);
-    console.log(nome);
-    console.log(telefone);
-    console.log(email);
-    console.log(afinidade);
-    console.log(imagem);
-    console.log(nomeImagem);  
+    // console.log(id);
+    // console.log(nome);
+    // console.log(telefone);
+    // console.log(email);
+    // console.log(afinidade);
+    // console.log(imagem);
+    // console.log(nomeImagem);  
         res.end;
     });
     // verificar se o campo imagem foi preenchido
