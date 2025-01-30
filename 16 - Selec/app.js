@@ -17,8 +17,6 @@ app.use('/bootstrap', express.static('./node_modules/bootstrap/dist'));
 
 // Adiciona o css
 app.use('/css', express.static('./css'));
-// referência a pasta de imagens
-app.use('/imagens', express.static('./imagens'));
 // configuração do handlebars
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
@@ -44,11 +42,23 @@ conexao.connect(function(err){
 app.get('/', (req, res) => {
     let sql = 'SELECT * FROM cliente';
     conexao.query(sql, function(err, result){
-        if(err) throw err;
         res.render('formulario', {clientes: result});
+        
     });
 });
 
+//Rota de cadastro
+
+// app.post('/cadastrar', (req, res) => {
+//     req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
+//     const { nome, telefone, email, afinidade, imagem} = req.body;
+//     const sql = `INSERT INTO cliente (nome, telefone, email, afinidade, imagem) VALUES ('${nome}', ${telefone}, '${email}', '${afinidade}', '${(req.files.imagem.name)}')`;
+//     conexao.query(sql, function(err, result){
+//         if(err) throw err;
+//         console.log('Usuário cadastrado com sucesso!');
+//         res.render('formulario');
+//     });
+// });
 
 app.post('/cadastrar', function(req, res){
    
