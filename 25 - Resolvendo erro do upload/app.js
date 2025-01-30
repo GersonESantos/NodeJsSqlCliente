@@ -119,8 +119,8 @@ app.post('/editar', function(req, res){
     }catch(erro){
         res.write('Imagem nao sera alterada');
     }
- 
-        res.end;
+    //res.end;
+    
     });
     // verificar se o campo imagem foi preenchido
 app.listen(8080, () => {

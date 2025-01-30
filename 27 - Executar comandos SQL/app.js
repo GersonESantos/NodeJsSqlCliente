@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
     let sql = 'SELECT * FROM cliente';
     conexao.query(sql, function(err, result){
         if(err) throw err;
-        res.render('formulario', {clientes: result});
+        res.render('formulario', {cliente: result});
     });
 });
 
@@ -148,7 +148,7 @@ app.get('/formularioEditar/:id', function(req, res){
         // verificar se o campo imagem foi preenchido       // Definir o tipo de edição
         try{
             // Objeto de imagem
-            let imagem = req.files.imagem;
+            let imagem = req.files.imagem.name;
             
             // SQL
             let sql = `UPDATE cliente SET nome='${nome}', telefone=${telefone}, email='${email}', afinidade='${afinidade}', imagem='${imagem.name}' WHERE id=${id}`;    
@@ -180,15 +180,11 @@ app.get('/formularioEditar/:id', function(req, res){
     }
 
     // Finalizar rota
-    res.end();
+    res.redirect(`/`)
     
 });
 
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
   });
-
- // Rota para editar produtos
-
-    // Obter os dados do formulário
     
