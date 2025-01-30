@@ -104,27 +104,129 @@ app.get('/formularioEditar/:id', function(req, res){
 });
 
 // Rota para editar Cliente
-app.post('/editar', function(req, res){
-    //obter os dados do formulário
-   let id = req.body.id;
-    let nome = req.body.nome;
-    let telefone = req.body.telefone;
-    let email = req.body.email;
-    let afinidade = req.body.afinidade;
-    let nomeImagem = req.body.nomeImagem;
-    // verificar se o campo imagem foi preenchido
-    try{
-        let imagem = req.files.imagem;
+// app.post('/editar', function(req, res){
+//     //obter os dados do formulário
+//    let id = req.body.id;
+//     let nome = req.body.nome;
+//     let telefone = req.body.telefone;
+//     let email = req.body.email;
+//     let afinidade = req.body.afinidade;
+//     let nomeImagem = req.body.nomeImagem;
+//     // verificar se o campo imagem foi preenchido
+//     try{
+//         let imagem = req.files.imagem;
         
-        let sql = `UPDATE cliente SET nome='${nome}', telefone=${telefone}, email='${email}', afinidade='${afinidade}', imagem='${imagem.name}' WHERE id=${id}`;    
 
-    }catch(erro){
-        let sql = `UPDATE cliente SET nome='${nome}', telefone=${telefone}, email='${email}', afinidade='${afinidade}' WHERE id=${id}`;    
-
-    }
-    res.redirect('/');
-    });
+//     }catch(erro){
+    //     }
+    //     res.redirect('/');
+    
+    //     });
     // verificar se o campo imagem foi preenchido
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // Rota para editar produtos
+    app.post('/editar', function(req, res){
+        
+        // Obter os dados do formulário
+        
+        
+        
+        
+        let id = req.body.id;
+        let nome = req.body.nome;
+        let telefone = req.body.telefone;
+        let email = req.body.email;
+        let afinidade = req.body.afinidade;
+        let nomeImagem = req.body.nomeImagem;
+        // verificar se o campo imagem foi preenchido
+        
+        
+        
+        
+        
+        
+        
+        // Definir o tipo de edição
+        try{
+            // Objeto de imagem
+            let imagem = req.files.imagem;
+            
+            // SQL
+            let sql = `UPDATE cliente SET nome='${nome}', telefone=${telefone}, email='${email}', afinidade='${afinidade}', imagem='${imagem.name}' WHERE id=${id}`;    
+            l
+            // Executar comando SQL
+            conexao.query(sql, function(erro, retorno){
+                // Caso falhe o comando SQL
+                if(erro) throw erro;
+                
+                // Remover imagem antiga
+                fs.unlink(__dirname+'/imagens/'+nomeImagem, (erro_imagem)=>{
+                    console.log('Falha ao remover a imagem.');
+                });
+                
+                // Cadastrar nova imagem
+                imagem.mv(__dirname+'/imagens/'+imagem.name);
+            });
+        }catch(erro){
+            
+            // SQL
+        
+             let sql = `UPDATE cliente SET nome='${nome}', telefone=${telefone}, email='${email}', afinidade='${afinidade}' WHERE id=${id}`;    
+    
+        // Executar comando SQL
+        conexao.query(sql, function(erro, retorno){
+            // Caso falhe o comando SQL
+            if(erro) throw erro;
+        });
+    }
+
+    // Finalizar rota
+    res.end();
+    
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
   });
