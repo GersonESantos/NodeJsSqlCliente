@@ -8,9 +8,9 @@
                 <form action="/cadastrar" method="post" enctype="multipart/form-data">
                 
                     <input type="text" name="nome" class="form-control" placeholder="Nome">
-                    <input type="number" name = "idade" class="form-control"  placeholder="Idade">
                     <input type="email" name = "email" class="form-control" placeholder="Email">
-                    <input type="paswd" name = "senha" class="form-control" placeholder="Senha">
+                    <input type="number" name = "telefone" class="form-control"  placeholder="Idade">
+                     <input type="text" name="afinidade" class="form-control" placeholder="Afinidade">
                      <input type="file" name = "imagem" class="form-control" >
                     <input type="submit" class="btn btn-primary" value="Cadastrar"> 
 
@@ -20,7 +20,7 @@
     </div>
     {{!-- Listagem de Clientes --}}
 
-<div class="conteiner">
+<div class="container">
     <div class="row">
     {{#each clientes}}
         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
@@ -28,12 +28,12 @@
                 <img src="../imagens/{{imagem}}" class="card-img-top" alt="..."> 
                 <div class="textos">     
                     <p>Nome: {{nome}}</p>
-                    <p>Idade: {{idade}}</p>
                     <p>Email: {{email}}</p>
-                    <p>Senha: {{senha}}</p>
+                    <p>Telefone: {{telefone}}</p>
+                    <p>Afinidade: {{afinidade}}</p>
                 </div> 
-                    <a href="/formularioEditar/{{codigo}}" class="btn btn-warning">Alterar</a>
-                    <a href="/remover/{{codigo}}&{{imagem}}" class="btn btn-danger">Remover</a>
+                    <a href="/formularioEditar/{{id}}" class="btn btn-warning">Alterar</a>
+                    <a href="/remover/{{id}}&{{imagem}}" class="btn btn-danger">Remover</a>
              </div>
         </div>
         {{/each}}
