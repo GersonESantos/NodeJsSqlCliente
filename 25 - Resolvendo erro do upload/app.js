@@ -106,7 +106,7 @@ app.get('/formularioEditar/:id', function(req, res){
 // Rota para editar Cliente
 app.post('/editar', function(req, res){
     //obter os dados do formulário
-    let id = req.body.id;
+    //let id = req.body.id;
     let nome = req.body.nome;
     let telefone = req.body.telefone;
     let email = req.body.email;
