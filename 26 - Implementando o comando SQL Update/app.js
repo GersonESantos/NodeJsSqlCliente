@@ -106,7 +106,7 @@ app.get('/formularioEditar/:id', function(req, res){
 // Rota para editar Cliente
 app.post('/editar', function(req, res){
     //obter os dados do formulário
-    let id = req.body.id;
+   let id = req.body.id;
     let nome = req.body.nome;
     let telefone = req.body.telefone;
     let email = req.body.email;
@@ -115,16 +115,21 @@ app.post('/editar', function(req, res){
     // verificar se o campo imagem foi preenchido
     try{
         let imagem = req.files.imagem;
+        
         let sql = `UPDATE cliente SET nome='${nome}', telefone=${telefone}, email='${email}', afinidade='${afinidade}', imagem='${imagem.name}' WHERE id=${id}`;    
+
     }catch(erro){
         let sql = `UPDATE cliente SET nome='${nome}', telefone=${telefone}, email='${email}', afinidade='${afinidade}' WHERE id=${id}`;    
 
     }
-        res.end;
+    res.redirect('/');
     });
     // verificar se o campo imagem foi preenchido
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
   });
 
- 
+ // Rota para editar produtos
+
+    // Obter os dados do formulário
+    
