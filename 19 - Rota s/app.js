@@ -70,15 +70,6 @@ app.post('/cadastrar', function(req, res){
     //res.end();
 });
 
-// Rota para remover produtos
-app.get('/remover/:id&:imagem', function(req, res){
-
-    console.log(req.params.id);
-    console.log(req.params.imagem);
-    res.end();
-    
-    });
-
 
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');

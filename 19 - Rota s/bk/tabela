@@ -1,0 +1,12 @@
+CREATE DATABASE projeto;
+
+USE projeto;
+CREATE TABLE cliente(
+id INT PRIMARY KEY AUTO_INCREMENT,
+nome VARCHAR(100),
+email varchar(150) 
+imagem VARCHAR(50)
+telefone int,
+afinidade VARCHAR(20),
+
+);
