@@ -7,6 +7,8 @@ const { engine } = require('express-handlebars');
 
 // importa o módulo mysql
 const mysql = require('mysql2');
+// File System
+const fs = require('fs');
 // App
 const app = express();
 // Habilita o fileupload
@@ -70,11 +72,52 @@ app.post('/cadastrar', function(req, res){
     //res.end();
 });
 
+
+
+// Rota para remover produtos
 app.get('/remover/:id&:imagem', function(req, res){
-    console.log(req.params);
-    console.log(req.params.imagem );   
-        res.end();
-    });
+    
+    // Tratamento de exeção
+    try{
+        // SQL
+        let sql = `DELETE FROM produtos WHERE codigo = ${req.params.id}`;
+
+        // Executar o comando SQL
+        conexao.query(sql, function(erro, retorno){
+            // Remover imagem
+            fs.unlink(__dirname + '/imagens/' + req.params.imagem, (erro_imagem) => {
+                if (erro_imagem) {
+                  console.log("Falha ao remover a imagem: ", erro_imagem);
+                } else {
+                  console.log("Imagem removida com sucesso.");
+                }
+            });
+        });
+
+        // Redirecionamento
+        //res.redirect('/okRemover');
+        res.redirect('/');
+    }catch(erro){
+        //res.redirect('/falhaRemover');
+        res.redirect('/');
+    }
+});
+
+
+
+
+// app.get('/remover/:id&:imagem', function(req, res){
+//     let id = req.params.id;
+//     let imagem = req.params.imagem;
+//     let sql = `DELETE FROM cliente WHERE id = ${id}`;
+//     conexao.query(sql, function(err, result){
+//         if(err) throw err;
+//         fs.unlink(__dirname + '/imagens/' +req.params.imagem, (erro_imagem) => {
+//             console.log('falha ao remover imagem');       
+//         });
+//     });    
+//     res.redirect('/');
+// })
 
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
