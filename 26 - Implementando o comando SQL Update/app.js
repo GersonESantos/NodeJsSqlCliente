@@ -114,25 +114,17 @@ app.post('/editar', function(req, res){
     let nomeImagem = req.body.nomeImagem;
     // verificar se o campo imagem foi preenchido
     try{
-        let imagem = req.files.imagem.name;
-        res.write('Imagem sera alterada');
+        let imagem = req.files.imagem;
+        let sql = `UPDATE cliente SET nome='${nome}', telefone=${telefone}, email='${email}', afinidade='${afinidade}', imagem='${imagem.name}' WHERE id=${id}`;    
     }catch(erro){
-        res.write('Imagem nao sera alterada');
+        let sql = `UPDATE cliente SET nome='${nome}', telefone=${telefone}, email='${email}', afinidade='${afinidade}' WHERE id=${id}`;    
+
     }
-
-
-    // exibir os dados no console
-
-    // console.log(id);
-    // console.log(nome);
-    // console.log(telefone);
-    // console.log(email);
-    // console.log(afinidade);
-    // console.log(imagem);
-    // console.log(nomeImagem);  
         res.end;
     });
     // verificar se o campo imagem foi preenchido
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
   });
+
+ 
