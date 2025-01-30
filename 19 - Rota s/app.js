@@ -70,6 +70,11 @@ app.post('/cadastrar', function(req, res){
     //res.end();
 });
 
+app.get('/remover/:id&:imagem', function(req, res){
+    console.log(req.params);
+    console.log(req.params.imagem );   
+        res.end();
+    });
 
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
