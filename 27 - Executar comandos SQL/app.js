@@ -138,27 +138,14 @@ app.get('/formularioEditar/:id', function(req, res){
     
     // Rota para editar produtos
     app.post('/editar', function(req, res){
-        
-        // Obter os dados do formulário
-        
-        
-        
-        
+           
         let id = req.body.id;
         let nome = req.body.nome;
         let telefone = req.body.telefone;
         let email = req.body.email;
         let afinidade = req.body.afinidade;
         let nomeImagem = req.body.nomeImagem;
-        // verificar se o campo imagem foi preenchido
-        
-        
-        
-        
-        
-        
-        
-        // Definir o tipo de edição
+        // verificar se o campo imagem foi preenchido       // Definir o tipo de edição
         try{
             // Objeto de imagem
             let imagem = req.files.imagem;
@@ -196,36 +183,6 @@ app.get('/formularioEditar/:id', function(req, res){
     res.end();
     
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
