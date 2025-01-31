@@ -8,6 +8,11 @@ form input {
 form input [type="submit"] {
     margin-top: 10px;
 }
+form img {
+    width: 200px;
+    margin-bottom: 40px;
+    
+}
 .card
 {
     margin-top: 40px;
