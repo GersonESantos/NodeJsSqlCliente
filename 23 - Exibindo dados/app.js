@@ -7,9 +7,8 @@ const { engine } = require('express-handlebars');
 
 // importa o módulo mysql
 const mysql = require('mysql2');
-//file systems
+// File System
 const fs = require('fs');
-
 // App
 const app = express();
 // Habilita o fileupload
@@ -72,60 +71,46 @@ app.post('/cadastrar', function(req, res){
    res.redirect('/');
     //res.end();
 });
+
+
+
 // Rota para remover produtos
 app.get('/remover/:id&:imagem', function(req, res){
     
-    // SQL
-    let sql = `DELETE FROM cliente WHERE id = ${req.params.id}`;
+    // Tratamento de exeção
+    try{
+        // SQL
+        let sql = `DELETE FROM produtos WHERE codigo = ${req.params.id}`;
 
-    // Executar o comando SQL
-    conexao.query(sql, function(erro, retorno){
-        // Caso falhe o comando SQL
-        if(erro) throw erro;
-
-        // Caso o comando SQL funcione
-        fs.unlink(__dirname+'/imagens/'+req.params.imagem, (erro_imagem)=>{
-            console.log('Falha ao remover a imagem ');
+        // Executar o comando SQL
+        conexao.query(sql, function(erro, retorno){
+            // Remover imagem
+            fs.unlink(__dirname + '/imagens/' + req.params.imagem, (erro_imagem) => {
+                if (erro_imagem) {
+                  console.log("Falha ao remover a imagem: ", erro_imagem);
+                } else {
+                  console.log("Imagem removida com sucesso.");
+                }
+            });
         });
-    });
 
-    // Redirecionamento
-    res.redirect('/');
-
+        // Redirecionamento
+        //res.redirect('/okRemover');
+        res.redirect('/');
+    }catch(erro){
+        //res.redirect('/falhaRemover');
+        res.redirect('/');
+    }
 });
 
 // Rota para redirecionar para o formulário de alteração/edição
 app.get('/formularioEditar/:id', function(req, res){
-    let sql = `SELECT * FROM cliente WHERE id = ${req.params.id}`;
-    conexao.query(sql, function(err, retorno){
-        if(err) throw err;
-        res.render('formularioEditar', {cliente:retorno[0]});
-    });    
+    
+    res.render("formularioEditar");
+    
+    
+   
 });
-
-// Rota para editar Cliente
-app.post('/editar', function(req, res){
-    //obter os dados do formulário
-    let id = req.body.id;
-    let nome = req.body.nome;
-    let telefone = req.body.telefone;
-    let email = req.body.email;
-    let afinidade = req.body.afinidade;
-    let nomeImagem = req.body.nomeImagem;
-    let imagem = req.files.imagem.name;
-
-    // exibir os dados no console
-
-    console.log(id);
-    console.log(nome);
-    console.log(telefone);
-    console.log(email);
-    console.log(afinidade);
-    console.log(imagem);
-    console.log(nomeImagem);  
-        res.end;
-    });
-    // verificar se o campo imagem foi preenchido
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
   });
