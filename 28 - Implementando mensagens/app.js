@@ -49,6 +49,14 @@ app.get('/', (req, res) => {
         res.render('formulario', {clientes: result});
     });
 });
+// Rota Principal contendo a situação do cadastro
+app.get('/:situacao', (req, res) => {
+    let sql = 'SELECT * FROM cliente';
+    conexao.query(sql, function(err, result){
+        if(err) throw err;
+        res.render('formulario', {clientes: result, situacao: req.params.situacao});
+    });
+});
 
 
 app.post('/cadastrar', function(req, res){
