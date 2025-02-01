@@ -112,10 +112,17 @@ app.post('/editar', function(req, res){
     let email = req.body.email;
     let afinidade = req.body.afinidade;
     let nomeImagem = req.body.nomeImagem;
-    let imagem = req.files.imagem.name;
+    
 
-    // exibir os dados no console
-
+    // definir o tipo de edição
+    try{
+        let imagem = req.files.imagem.name;
+        res.write('Imagem sera alterada');
+    }catch(erro){
+        
+        res.write('Imagem não sera alterada');
+    }
+        
     console.log(id);
     console.log(nome);
     console.log(telefone);
