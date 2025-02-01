@@ -128,10 +128,28 @@ app.post('/editar', function(req, res){
         let imagem = req.files.imagem;
         //sql
         let sql = `UPDATE cliente SET nome = '${nome}', telefone = ${telefone}, email = '${email}', afinidade = '${afinidade}', imagem = '${imagem.name}' WHERE id = ${id}`;
+    //execultar o comando sql
+    conexao.query(sql, function(erro, retorno){
+        //caso ocorra erro
+        if(erro) throw erro;
+        //remover a imagem antiga
+        fs.unlink(__dirname + '/imagens/' + nomeImagem, (erro_imagem) => {
+              console.log("Falha ao remover a imagem: "); 
+            });
+// salvar a nova imagem
+        imagem.mv(__dirname + '/imagens/' + imagem.name);
+        });
     }catch(erro){
         let sql = `UPDATE cliente SET nome = '${nome}', telefone = ${telefone}, email = '${email}', afinidade = '${afinidade}' WHERE id = ${id}`;
+    //execultar o comando sql
+    conexao.query(sql, function(erro, retorno){
+        //caso ocorra erro
+        if(erro) throw erro;
+        });
     }
-        res.end;
+    //redirecionar
+
+        res.redirect('/');
     });
     // verificar se o campo imagem foi preenchido
     
