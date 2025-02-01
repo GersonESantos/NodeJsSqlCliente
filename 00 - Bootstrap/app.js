@@ -40,4 +40,7 @@ app.get('/', function(req, res){
 });
 
 // Servidor
-app.listen(8080);
+
+app.listen(8080, () => {
+    console.log('Rodando app listening at http://localhost:8080');
+  });
