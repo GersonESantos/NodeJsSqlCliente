@@ -7,7 +7,8 @@ const { engine } = require('express-handlebars');
 
 // importa o módulo mysql
 const mysql = require('mysql2');
-//file systems
+
+//File System
 const fs = require('fs');
 
 // App
@@ -18,6 +19,7 @@ app.use(fileUpload());
 // Adiciona o bootstrap
 app.use('/bootstrap', express.static('./node_modules/bootstrap/dist'));
 
+// configuração do handlebars
 // Adiciona o css
 app.use('/css', express.static('./css'));
 app.use('/imagens', express.static('./imagens'));
@@ -44,34 +46,46 @@ conexao.connect(function(err){
 });
 // Rota Principal
 app.get('/', (req, res) => {
-    let sql = 'SELECT * FROM cliente';
+    let sql = 'SELECT * FROM cliente';  
     conexao.query(sql, function(err, result){
         if(err) throw err;
         res.render('formulario', {clientes: result});
     });
 });
 
+//Rota de cadastro
+
+// app.post('/cadastrar', (req, res) => {
+//     req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
+//     const { nome, idade, email, afinidade, imagem} = req.body;
+//     const sql = `INSERT INTO cliente (nome, idade, email, afinidade, imagem) VALUES ('${nome}', ${idade}, '${email}', '${afinidade}', '${(req.files.imagem.name)}')`;
+//     conexao.query(sql, function(err, result){
+//         if(err) throw err;
+//         console.log('Usuário cadastrado com sucesso!');
+//         res.render('formulario');
+//     });
+// });
 
 app.post('/cadastrar', function(req, res){
-   
     let nome = req.body.nome;
     let telefone = req.body.telefone;
     let email = req.body.email;
     let afinidade = req.body.afinidade;
-    req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
-
-    const sql = `INSERT INTO cliente (nome, telefone, email, afinidade, imagem) VALUES ('${nome}', ${telefone}, '${email}', '${afinidade}', '${req.files.imagem.name}')`;
+    let imagem = req.files.imagem;
+    //Sql
+    let sql = `INSERT INTO cliente (nome, telefone, email, afinidade, imagem) VALUES ('${nome}', ${idade}, '${email}', '${afinidade}', '${imagem.name}')`;
+    //executar a query SQL
     conexao.query(sql, function(err, result){
         if(err) throw err;
         console.log('Usuário cadastrado com sucesso!');
-       
-    }); 
-    console.log(req.body);
-    console.log(req.files.imagem.name);
-    req.files.imagem.mv(__dirname + '/imagens/' + req.files.imagem.name);
-   res.redirect('/');
-    //res.end();
+        req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
+        console.log('resultado', result);
+    });
+    res.render('/');
 });
+
+// Rota de exclusão de cliente
+
 // Rota para remover produtos
 app.get('/remover/:id&:imagem', function(req, res){
     
@@ -93,39 +107,14 @@ app.get('/remover/:id&:imagem', function(req, res){
     res.redirect('/');
 
 });
-
 // Rota para redirecionar para o formulário de alteração/edição
 app.get('/formularioEditar/:id', function(req, res){
-    let sql = `SELECT * FROM cliente WHERE id = ${req.params.id}`;
-    conexao.query(sql, function(err, retorno){
-        if(err) throw err;
-        res.render('formularioEditar', {cliente:retorno[0]});
-    });    
+    
+    console.log(req.params.id);
+    res.end();
+    
 });
 
-// Rota para editar Cliente
-app.post('/editar', function(req, res){
-    //obter os dados do formulário
-    let id = req.body.id;
-    let nome = req.body.nome;
-    let telefone = req.body.telefone;
-    let email = req.body.email;
-    let afinidade = req.body.afinidade;
-    let nomeImagem = req.body.nomeImagem;
-    let imagem = req.files.imagem.name;
-
-    // exibir os dados no console
-
-    console.log(id);
-    console.log(nome);
-    console.log(telefone);
-    console.log(email);
-    console.log(afinidade);
-    console.log(imagem);
-    console.log(nomeImagem);  
-        res.end;
-    });
-    // verificar se o campo imagem foi preenchido
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
   });
