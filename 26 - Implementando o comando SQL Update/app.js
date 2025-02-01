@@ -125,11 +125,11 @@ app.post('/editar', function(req, res){
 
     // definir o tipo de ediçâo
     try{
-        let imagem = req.files.imagem.name;
-        res.write('A imagem sera alterada');
+        let imagem = req.files.imagem;
+        //sql
+        let sql = `UPDATE cliente SET nome = '${nome}', telefone = ${telefone}, email = '${email}', afinidade = '${afinidade}', imagem = '${imagem.name}' WHERE id = ${id}`;
     }catch(erro){
-        res.write('A imagem não sera alterada');
-
+        let sql = `UPDATE cliente SET nome = '${nome}', telefone = ${telefone}, email = '${email}', afinidade = '${afinidade}' WHERE id = ${id}`;
     }
         res.end;
     });
