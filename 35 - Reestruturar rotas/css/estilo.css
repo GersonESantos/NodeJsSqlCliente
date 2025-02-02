@@ -2,7 +2,7 @@ form {
     margin-top: 30px;
     text-align: center;
 }
-form input {
+form input , form select {
     margin-bottom: 10px;
 }
 form input [type="submit"] {

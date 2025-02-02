@@ -1,0 +1,26 @@
+
+
+<main>
+   
+    
+
+<div class="conteiner">
+    <div class="row">
+    {{#each clientes}}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card">
+                <img src="../imagens/{{imagem}}" class="card-img-top" alt="..."> 
+                <div class="textos">     
+                    <p>Nome: {{nome}}</p>
+                    <p>Email: {{email}}</p>
+                    <p>Telefone: {{telefone}}</p>
+                    <p>Afinidade: {{afinidade}}</p>
+                </div> 
+                    <a href="/formularioEditar/{{id}}" class="btn btn-warning">Alterar</a>
+                    <a href="/remover/{{id}}&{{imagem}}" class="btn btn-danger">Remover</a>
+             </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+</main>
