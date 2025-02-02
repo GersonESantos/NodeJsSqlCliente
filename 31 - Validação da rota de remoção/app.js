@@ -125,6 +125,7 @@ app.get('/remover/:id&:imagem', function(req, res){
 
         // Executar o comando SQL
         conexao.query(sql, function(erro, retorno){
+            if(erro) throw erro;
             // Remover imagem
             fs.unlink(__dirname + '/imagens/' + req.params.imagem, (erro_imagem) => {
                 if (erro_imagem) {
