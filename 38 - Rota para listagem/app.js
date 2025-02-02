@@ -190,7 +190,7 @@ app.get('/listar/:afinidade', function(req, res){
     if(afinidade == 'todos'){
         sql = 'SELECT * FROM cliente';
     }else{
-            sql = `SELECT * FROM cliente WHERE afinidade = `${afinidade}``;            
+            sql = `SELECT * FROM cliente WHERE afinidade = '${afinidade}'`;            
         };    
     conexao.query(sql, function(err, result){
         if(err) throw err;
