@@ -117,11 +117,11 @@ app.get('/remover/:id&:imagem', function(req, res){
         });
 
         // Redirecionamento
-        res.redirect('/okRemover');
-        //res.redirect('/');
+        //res.redirect('/okRemover');
+        res.redirect('/');
     }catch(erro){
-        res.redirect('/falhaRemover');
-        //res.redirect('/');
+        //res.redirect('/falhaRemover');
+        res.redirect('/');
     }
 });
 
