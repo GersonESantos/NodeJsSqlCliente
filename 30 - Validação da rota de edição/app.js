@@ -162,7 +162,10 @@ app.post('/editar', function(req, res){
     let email = req.body.email;
     let afinidade = req.body.afinidade;
     let nomeImagem = req.body.nomeImagem;
-    
+    // validar nome telefone email e afinidade
+    if(nome == '' || afinidade == '' || email == '' || isNaN(telefone)){
+        res.redirect('/falhaCadastro');
+     }else{ 
 
     // definir o tipo de ediçâo
     try{
@@ -190,8 +193,10 @@ app.post('/editar', function(req, res){
     }
     //redirecionar
 
-        res.redirect('/');
+        res.redirect('/okEdicao');
+    }
     });
+
     // verificar se o campo imagem foi preenchido
     
 app.listen(8080, () => {
