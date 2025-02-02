@@ -21,7 +21,15 @@ app.use('/bootstrap', express.static('./node_modules/bootstrap/dist'));
 app.use('/css', express.static('./css'));
 app.use('/imagens', express.static('./imagens'));
 // configuração do handlebars
-app.engine('handlebars', engine());
+// Configuração do express-handlebars
+app.engine('handlebars', engine({
+    helpers: {
+      // Função auxiliar para verificar igualdade
+      condicionalIgualdade: function (parametro1, parametro2, options) {
+        return parametro1 === parametro2 ? options.fn(this) : options.inverse(this);
+      }
+    }
+  }));
 app.set('view engine', 'handlebars');
 app.set('views', './views');
 // configuração do banco de dados
