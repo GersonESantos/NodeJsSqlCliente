@@ -59,27 +59,60 @@ app.get('/:situacao', (req, res) => {
 });
 
 
-app.post('/cadastrar', function(req, res){
+// app.post('/cadastrar', function(req, res){
    
-    let nome = req.body.nome;
-    let telefone = req.body.telefone;
-    let email = req.body.email;
-    let afinidade = req.body.afinidade;
-    req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
+//     let nome = req.body.nome;
+//     let telefone = req.body.telefone;
+//     let email = req.body.email;
+//     let afinidade = req.body.afinidade;
+//     req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
 
-    const sql = `INSERT INTO cliente (nome, telefone, email, afinidade, imagem) VALUES ('${nome}', ${telefone}, '${email}', '${afinidade}', '${req.files.imagem.name}')`;
-    conexao.query(sql, function(err, result){
-        if(err) throw err;
-        console.log('Usuário cadastrado com sucesso!');
+//     const sql = `INSERT INTO cliente (nome, telefone, email, afinidade, imagem) VALUES ('${nome}', ${telefone}, '${email}', '${afinidade}', '${req.files.imagem.name}')`;
+//     conexao.query(sql, function(err, result){
+//         if(err) throw err;
+//         console.log('Usuário cadastrado com sucesso!');
        
-    }); 
-    console.log(req.body);
-    console.log(req.files.imagem.name);
-    req.files.imagem.mv(__dirname + '/imagens/' + req.files.imagem.name);
-   res.redirect('/');
-    //res.end();
-});
+//     }); 
+//     console.log(req.body);
+//     console.log(req.files.imagem.name);
+//     req.files.imagem.mv(__dirname + '/imagens/' + req.files.imagem.name);
+//    res.redirect('/');
+//     //res.end();
+// });
 
+// Rota de cadastro
+app.post('/cadastrar', function(req, res){
+    try{
+      // Obter os dados que serão utiliados para o cadastro
+      
+      let nome = req.body.nome;
+      let telefone = req.body.telefone;
+      let email = req.body.email;
+      let afinidade = req.body.afinidade;
+      // Validar o nome do produto e o valor
+      if(nome == '' || afinidade == '' || email == '' || isNaN(telefone)){
+         res.redirect('/falhaCadastro');
+      }else{
+         // SQL
+        let sql = `INSERT INTO cliente (nome, telefone, email, afinidade, imagem) VALUES ('${nome}', ${telefone}, '${email}', '${afinidade}', '${req.files.imagem.name}')`;
+ 
+         // Executar comando SQL
+         conexao.query(sql, function(erro, retorno){
+             // Caso ocorra algum erro
+             if(erro) throw erro;
+ 
+             // Caso ocorra o cadastro
+             req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
+             console.log(retorno);
+         });
+ 
+         // Retornar para a rota principal
+         res.redirect('/okCadastro');
+      }
+    }catch(erro){
+     res.redirect('/falhaCadastro');
+    }
+ });
 
 
 // Rota para remover produtos
@@ -164,3 +197,13 @@ app.post('/editar', function(req, res){
 app.listen(8080, () => {
     console.log('Rodando app listening at http://localhost:8080');
   });
+
+
+
+
+
+
+
+
+
+
