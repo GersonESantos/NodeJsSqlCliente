@@ -74,7 +74,7 @@ app.post('/cadastrar', function(req, res){
       let telefone = req.body.telefone;
       let email = req.body.email;
       let afinidade = req.body.afinidade;
-      // Validar o nome do produto e o valor
+      // Validar o nome do cliente e o valor
       if(nome == '' || afinidade == '' || email == '' || isNaN(telefone)){
          res.redirect('/falhaCadastro');
       }else{
@@ -100,13 +100,13 @@ app.post('/cadastrar', function(req, res){
  });
 
 
-// Rota para remover produtos
+// Rota para remover clientes
 app.get('/remover/:id&:imagem', function(req, res){
     
     // Tratamento de exeção
     try{
         // SQL
-        let sql = `DELETE FROM produtos WHERE codigo = ${req.params.id}`;
+        let sql = `DELETE FROM cliente WHERE codigo = ${req.params.id}`;
 
         // Executar o comando SQL
         conexao.query(sql, function(erro, retorno){
