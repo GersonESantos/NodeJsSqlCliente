@@ -1,0 +1,33 @@
+
+
+<main>
+   
+    {{!-- foumulario --}}
+    <div class="container">
+        <div class="row">
+            <div class="col-6 offset-3">
+
+                {{>mensagens}}
+
+                <form action="/cadastrar" method="post" enctype="multipart/form-data">
+                
+                    <input type="text" name="nome" class="form-control" placeholder="Nome">
+                    <input type="email" name = "email" class="form-control" placeholder="Email">
+                    <input type="number" name = "telefone" class="form-control"  placeholder="telefone">
+                     <select  name="afinidade" class="form-control">
+                        <option value="">Selecione</option>
+                        <option value="amigo">Amigo</option>
+                        <option value="familiar">Familiar</option>
+                        <option value="profissional">Profissional</option>
+                    </select>
+                     <input type="file" name = "imagem" class="form-control" >
+                    <input type="submit" class="btn btn-primary" value="Cadastrar"> 
+
+                </form>
+            </div>        
+        </div>       
+    </div>
+    {{!-- Listagem de  --}}
+
+
+</main>
