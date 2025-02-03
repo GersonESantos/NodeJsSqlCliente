@@ -183,14 +183,14 @@ app.post('/editar', function(req, res){
     }
     });
 
-    // Rota para listar clientes
+    // Rota para listar clientes   '${afinidade}'
 app.get('/listar/:afinidade', function(req, res){
     let afinidade = req.params.afinidade;
     let sql = '';
     if(afinidade == 'todos'){
         sql = 'SELECT * FROM cliente';
     }else{
-            sql = `SELECT * FROM cliente WHERE afinidade = '${afinidade}'`;            
+            sql = `SELECT * FROM cliente WHERE afinidade = 1`;            
         };    
     conexao.query(sql, function(err, result){
         if(err) throw err;
