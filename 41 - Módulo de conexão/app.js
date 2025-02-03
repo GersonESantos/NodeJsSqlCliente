@@ -1,12 +1,13 @@
 // Import the express library
 const express = require('express');
+// Importar o módulo de conexão
+const conexao = require('./bd/conexao_mysql');
 // importa o módulo fileupload
 const fileUpload = require('express-fileupload');
 // Importa o módulo express-handlebars
 const { engine } = require('express-handlebars');
 
-// importa o módulo mysql
-const mysql = require('mysql2');
+
 // File System
 const fs = require('fs');
 // App
@@ -37,18 +38,7 @@ app.set('views', './views');
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
-// Conexão com o banco de dados
-const conexao = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Gabibi89*',
-    database: 'projeto'
-}); 
-// Conectar
-conexao.connect(function(err){
-    if(err) throw err;
-    console.log('Conectado com sucesso!');
-});
+
 // Rota Principal
 app.get('/', (req, res) => {
     
