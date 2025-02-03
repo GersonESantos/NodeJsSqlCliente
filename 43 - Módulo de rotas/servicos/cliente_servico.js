@@ -30,7 +30,7 @@ function listagemCliente(req, res){
     if(afinidade == 'todos'){
         sql = 'SELECT * FROM cliente';
     }else{
-            sql = `SELECT * FROM cliente WHERE afinidade = 1`;            
+            sql = `SELECT * FROM cliente WHERE afinidade = '${afinidade}'`;            
         };    
     conexao.query(sql, function(err, result){
         if(err) throw err;
