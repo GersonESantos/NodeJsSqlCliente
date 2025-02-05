@@ -1,4 +1,4 @@
-//Importar o módulo de conexão com banco MySQL
+// Importar o módulo de conexão com banco MySQL
 const conexao = require('../bd/conexao_mysql');
 
 // Importar o módulo file system
@@ -7,6 +7,7 @@ const fs = require('fs');
 // Função para exibir o formulário para cadastro de Cliente
 function formularioCadastro(req, res){
     res.render('formulario');
+  
 }
 
 // Função para exibir o formulário para cadastro de Cliente e a situação
@@ -20,7 +21,7 @@ function formularioEditar(req, res){
     conexao.query(sql, function(err, retorno){
         if(err) throw err;
         res.render('formularioEditar', {cliente:retorno[0]});
-    });   
+    });    
 }
 
 // Função para exibir a listagem de Cliente
@@ -36,7 +37,6 @@ function listagemCliente(req, res){
         if(err) throw err;
         res.render('lista', {clientes: result});
     });
-           
 }
 
 // Função para realizar a pesquisa de Cliente
@@ -87,8 +87,8 @@ function cadastrarCliente(req, res){
 
 // Função para realizar a remoção de Cliente
 function removerCliente(req, res){
-      // Tratamento de exeção
-      try{
+     // Tratamento de exeção
+     try{
         // SQL
         let sql = `DELETE FROM cliente WHERE codigo = ${req.params.id}`;
 
