@@ -7,7 +7,7 @@ const fileUpload = require('express-fileupload');
 const { engine } = require('express-handlebars');
 
 // Importar o módulo de rotas
-const rota_cliente = require('./rotas/cliente_rotas');
+const rota_cliente = require('./rotas/cliente_rota');
 
 // App
 const app = express();
