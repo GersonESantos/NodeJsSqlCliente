@@ -2,7 +2,7 @@
 const express = require('express');
 
 // importa o módulo fileupload
-const fileUpload = require('express-fileupload');
+const fileupload = require('express-fileupload');
 // Importa o módulo express-handlebars
 const { engine } = require('express-handlebars');
 
@@ -12,7 +12,7 @@ const servico = require('./servicos/cliente_servico');
 // App
 const app = express();
 // Habilita o fileupload
-app.use(fileUpload());
+app.use(fileupload());
 
 // Adiciona o bootstrap
 app.use('/bootstrap', express.static('./node_modules/bootstrap/dist'));

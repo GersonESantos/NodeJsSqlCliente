@@ -73,7 +73,8 @@ function cadastrarCliente(req, res){
                if(erro) throw erro;
    
                // Caso ocorra o cadastro
-               req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
+              // req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
+               req.files.imagem.mv(__dirname+'../../imagens/'+req.files.imagem.name);
                console.log(retorno);
            });
    
