@@ -73,9 +73,9 @@ function cadastrarCliente(req, res){
                if(erro) throw erro;
    
                // Caso ocorra o cadastro
-               const diretorio = path.join(__dirname, '../');
-               req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
-               //req.files.imagem.mv(__dirname+'../../imagens/'+req.files.imagem.name);
+               //const diretorio = path.join(__dirname, '../');
+               //req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
+               req.files.imagem.mv(__dirname+'../../imagens/'+req.files.imagem.name);
                console.log(retorno);
            });
    
