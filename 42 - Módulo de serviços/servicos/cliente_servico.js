@@ -49,7 +49,7 @@ function pesquisa(req, res){
         let semRegistro = result.length == 0 ? true : false; 
         res.render('lista', {clientes: result, semRegistro: semRegistro});  
     });
-}
+};
 
 // Função para realizar o cadastro de Cliente
 function cadastrarCliente(req, res){

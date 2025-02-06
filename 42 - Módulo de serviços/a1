@@ -1,0 +1,32 @@
+app.post('/cadastrar', function(req, res){
+    try{
+      // Obter os dados que serão utiliados para o cadastro
+      
+      let nome = req.body.nome;
+      let telefone = req.body.telefone;
+      let email = req.body.email;
+      let afinidade = req.body.afinidade;
+      // Validar o nome do cliente e o valor
+      if(nome == '' || afinidade == '' || email == '' || isNaN(telefone)){
+         res.redirect('/falhaCadastro');
+      }else{
+         // SQL
+        let sql = `INSERT INTO cliente (nome, telefone, email, afinidade, imagem) VALUES ('${nome}', ${telefone}, '${email}', '${afinidade}', '${req.files.imagem.name}')`;
+ 
+         // Executar comando SQL
+         conexao.query(sql, function(erro, retorno){
+             // Caso ocorra algum erro
+             if(erro) throw erro;
+ 
+             // Caso ocorra o cadastro
+             req.files.imagem.mv(__dirname+'/imagens/'+req.files.imagem.name);
+             console.log(retorno);
+         });
+ 
+         // Retornar para a rota principal
+         res.redirect('/okCadastro');
+      }
+    }catch(erro){
+     res.redirect('/falhaCadastro');
+    }
+ });
